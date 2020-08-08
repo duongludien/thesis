@@ -1,0 +1,126 @@
+% oneside: 1 mặt
+\documentclass[a4paper,12pt,oneside]{report}
+
+% twoside, openright: 2 mặt, trang đầu chương luôn nằm bên tay phải
+% \documentclass[a4paper,12pt,twoside,openright]{report}
+
+% Tiếng Việt
+\usepackage[utf8]{vietnam}
+
+% Dùng để set margin
+\usepackage[top=3cm,inner=3.5cm,outer=2cm,bottom=3cm,headheight=120pt]{geometry}        
+
+\usepackage{graphicx}           % Dùng để chèn hình ảnh
+\graphicspath{ {images/} }      % Folder chứa hình ảnh 
+\usepackage{subfiles}           % Dùng để chia thành các files nhỏ
+\usepackage{fancyhdr}           % Dùng để tạo header và footer
+\usepackage{emptypage}          % Không đánh số trang, header, footer với các trang trắng
+\usepackage{tabularx}           % Dùng để chèn bảng
+\usepackage{pdflscape}          % Một vài trang nằm ngang (landscape) thay vì dọc (portrait) (bảng, biểu đồ)
+\usepackage[square]{natbib}                         % Dùng cho tài liệu tham khảo
+% \setcitestyle{super}                                % Ký hiệu tài liệu tham khảo dạng superscript
+\usepackage{url}                                    % Dùng cho URL
+\usepackage{longtable}                              % Dùng cho các bảng dài, nhiều trang
+\usepackage{amsmath}                                % Dùng để chèn các công thức Toán
+\usepackage{makecell}                               % Dùng để làm nổi bật header của bảng
+\usepackage{float}                                  % Dùng để thiết đặt thuộc tính H (here) cho ảnh
+\usepackage{bbm} 									% For big 1 notation :)
+\usepackage[toc]{appendix}							
+\renewcommand\appendixtocname{PHỤ LỤC}
+\setlength{\parskip}{1em}							% Line spacing
+\usepackage{enumitem}
+
+% Định dạng cho header của bảng
+\renewcommand\theadfont{\bfseries}
+
+% Định dạng cho code
+\usepackage{fancyvrb}       % Phiên bản nâng cao của verbatim, dùng để chèn code
+% Định dạng cho code
+\fvset{
+    tabsize=4,              % Định tabsize
+    frame=single,           % Khung
+    fontsize=\small,        % Cỡ chữ
+}
+\usepackage{upquote}        % Tạo ra các dấu ngoặc đơn hoặc kép thẳng (straight) trong Verbatim
+
+% Hiển thị dòng kẻ để viết tay (phần Nhận xét của giảng viên)
+\usepackage{pgffor, ifthen}
+\newcommand{\notes}[3][\empty]{
+    \noindent \vspace{15pt}\\
+    \foreach \n in {1,...,#2}{
+        \ifthenelse{
+            \equal{#1}{\empty}
+        }
+        {\rule{#3}{0.5pt}\vspace{15pt}\\}
+        {\rule{#3}{0.5pt}\vspace{15pt}\\}
+    }
+}
+
+\title{Nhận dạng biển báo giao thông Việt Nam thời gian thực bằng YOLO}  % Tiêu đề luận văn
+\author{Dương Lữ Điện}                                      % Người thực hiện 
+
+% Header và footer 
+\pagestyle{fancy}
+\fancyhf{}
+
+% Header và footer nếu in 1 mặt
+\rhead{\fontsize{10}{12} \selectfont Giảng viên hướng dẫn:\\TS. Trần Công Án}                   % Header bên phải
+\lhead{\fontsize{10}{12} \selectfont Đề tài:\\Nhận dạng biển báo giao thông Việt Nam thời gian thực bằng YOLO}                                   % Header bên trái
+\rfoot{\fontsize{10}{12} \selectfont \thepage}                                          % Footer bên phải
+\lfoot{\fontsize{10}{12} \selectfont Dương Lữ Điện - B1401133}                          % Footer bên trái
+
+% Header và footer nếu in 2 mặt
+% \rhead{\fontsize{10}{10} \selectfont Giảng viên hướng dẫn:\\TS. Trần Công Án}				% Header bên phải
+% \lhead{\fontsize{10}{10} \selectfont Đề tài:\\Nhận dạng biển báo giao thông Việt Nam thời gian thực bằng YOLO} 							% Header bên trái
+% \fancyfoot[RO]{\fontsize{10}{10} \selectfont \thepage}								% Footer mép ngoài
+% \fancyfoot[LE]{\fontsize{10}{10} \selectfont \thepage}								% Footer mép ngoài
+% \fancyfoot[LO]{\fontsize{10}{10} \selectfont Dương Lữ Điện - B1401133}				% Footer mép trong
+% \fancyfoot[RE]{\fontsize{10}{10} \selectfont Dương Lữ Điện - B1401133}				% Footer mép trong
+
+\begin{document}
+\subfile{bia-ngoai}     % Gọi file bìa ngoài
+\subfile{bia-trong}     % Gọi file bìa trong
+
+\pagenumbering{roman}   % Kiểu số trang: i, ii, iii, iv, v,...
+
+\chapter*{NHẬN XÉT CỦA GIẢNG VIÊN}
+\subfile{chapters/nhan-xet-gv}
+
+\chapter*{LỜI CẢM ƠN}
+\subfile{chapters/loi-cam-on}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\clearpage
+\pagenumbering{arabic}          % Kiểu số trang: 1, 2, 3,...
+
+\subfile{chapters/abstract}
+
+\part{PHẦN GIỚI THIỆU}
+\subfile{chapters/intro}
+
+\part{PHẦN NỘI DUNG}
+
+\chapter{CƠ SỞ LÝ THUYẾT}
+\subfile{chapters/chapter01}
+
+\chapter{THU THẬP VÀ XỬ LÝ DỮ LIỆU,\\THIẾT KẾ MÔ HÌNH}
+\subfile{chapters/chapter02}
+
+\chapter{ĐÁNH GIÁ MÔ HÌNH}
+\subfile{chapters/chapter03}
+
+\chapter{KẾT LUẬN\\VÀ HƯỚNG PHÁT TRIỂN}
+\subfile{chapters/chapter04}
+
+\begin{appendices}
+  \chapter*{MỘT SỐ KẾT QUẢ NHẬN DẠNG}
+  \subfile{chapters/appendix}
+\end{appendices}
+
+\bibliography{mybib}{}
+\bibliographystyle{siam}
+
+\end{document}
